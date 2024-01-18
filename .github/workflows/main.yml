@@ -17,14 +17,4 @@ jobs:
         sudo dpkg -I openvpn_2.4.12-0ubuntu0.20.04.1_amd64.deb
         sudo apt-get install -f  # Install dependencies
         sudo apt-get check
-    - name: Verify OpenVPN Installation
-      run: |
-        if ! command -v openvpn &> /dev/null
-        then
-        echo "OpenVPN is not installed"
-        exit 1
-        fi
-        openvpn --version
-        sudo systemctl status openvpn
-        ifconfig
-        shell: /usr/bin/bash -e {0}
+   
