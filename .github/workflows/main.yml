@@ -14,7 +14,7 @@ jobs:
       run: |
         # Replace 'your-package-name.deb' with the actual name of your .deb file
         # sudo apt install libpkcs11-helper1
-        sudo dpkg -I openvpn_2.4.12-0ubuntu0.20.04.1_amd64.deb
+        sudo dpkg -i openvpn_2.4.12-0ubuntu0.20.04.1_amd64.deb
         sudo apt-get install -f  # Install dependencies
         sudo apt-get check
    
