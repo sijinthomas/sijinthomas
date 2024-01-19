@@ -17,5 +17,6 @@ else
     echo "Dependencies of $package_name:"
     for dependency in $dependencies; do
         echo "- $dependency"
+        sudo apt-get install -y $dependency
     done
 fi
