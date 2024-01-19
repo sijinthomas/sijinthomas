@@ -29,15 +29,8 @@ jobs:
     - name: Run script
       run: | 
         sudo chmod +x openvpn_dependencies.sh
-        sudo ./openvpn_dependencies.sh > dependencies.txt
+        sudo ./openvpn_dependencies.sh
 
-     - name: Display Dependencies
-      run: |
-        cat dependencies.txt
-
-    - name: Install Dependencies using dpkg
-      run: |
-        sudo xargs dpkg -i < dependencies.txt || sudo apt-get install -f
 
     
    
