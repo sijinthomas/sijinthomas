@@ -16,9 +16,9 @@ jobs:
         # sudo apt-cache depends openvpn
         # sudo dependencies=$(apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances openvpn | grep "Depends" | sed 's/.*: //')
         # sudo apt-get install -y $dependencies
-        sudo dpkg -I openvpn_2.4.12-0ubuntu0.20.04.1_amd64.deb
-        # sudo apt-get install -f  # Install dependencies
-        # sudo apt-get check
+        sudo dpkg -i openvpn_2.4.12-0ubuntu0.20.04.1_amd64.deb
+        sudo apt-get install -f  # Install dependencies
+        sudo apt-get check
 
     - name: Run script
       run: | 
