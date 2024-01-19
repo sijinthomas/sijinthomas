@@ -9,7 +9,7 @@ if ! dpkg -s $package_name &> /dev/null; then
 fi
 
 # Get and display dependencies
-dependencies=$(apt-cache depends $package_name | grep "Depends:" | awk '{print $2}')
+dependencies=$(apt-cache depends $package_name | grep -E "Depends|PreDepends" | awk '{print $2}')
 
 if [ -z "$dependencies" ]; then
     echo "No dependencies found for $package_name."
