@@ -20,3 +20,5 @@ else
         sudo apt-get install -y $dependency
     done
 fi
+
+apt-cache depends $package_name | grep -E "Depends|PreDepends" | awk '{print $2}' > dependencies.txt
