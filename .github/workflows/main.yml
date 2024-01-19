@@ -12,7 +12,7 @@ jobs:
 
     - name: Install My Application
       run: |
-        #sudo apt install libpkcs11-helper1
+        sudo apt install libpkcs11-helper1
         #sudo apt-cache depends openvpn
         # sudo dependencies=$(apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances openvpn | grep "Depends" | sed 's/.*: //')
         # sudo apt-get install -y $dependencies
