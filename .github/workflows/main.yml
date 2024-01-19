@@ -10,6 +10,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Run script
+      run: ./openvpn_dependencies.sh
+
     - name: Install My Application
       run: |
         # sudo apt install libpkcs11-helper1
@@ -20,6 +23,5 @@ jobs:
         # sudo apt-get install -f  # Install dependencies
         # sudo apt-get check
 
-    - name: Run script
-      run: ./openvpn_dependencies.sh
+    
    
