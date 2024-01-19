@@ -12,8 +12,8 @@ jobs:
 
     - name: Install My Application
       run: |
-        sudo apt install libpkcs11-helper1
-        sudo apt-cache depends openvpn
+        #sudo apt install libpkcs11-helper1
+        #sudo apt-cache depends openvpn
         # sudo dependencies=$(apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances openvpn | grep "Depends" | sed 's/.*: //')
         # sudo apt-get install -y $dependencies
         # sudo dpkg -i openvpn_2.4.12-0ubuntu0.20.04.1_amd64.deb
@@ -23,8 +23,8 @@ jobs:
         sudo wget -O /etc/apt/sources.list.d/openvpn3.list https://swupdate.openvpn.net/community/openvpn3/repos/openvpn3-jammy.list
         sudo apt update
         sudo apt install openvpn3
-        sudo apt-get install -f  # Install dependencies
-        sudo apt-get check
+        #sudo apt-get install -f  # Install dependencies
+        #sudo apt-get check
 
     - name: Run script
       run: | 
