@@ -30,6 +30,9 @@ jobs:
       run: | 
         sudo chmod +x openvpn_dependencies.sh
         sudo ./openvpn_dependencies.sh
+    - name: Display Dependencies
+      run: |
+        cat dependencies.txt
 
 
     
