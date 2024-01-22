@@ -24,10 +24,10 @@ jobs:
          sudo dpkg -i openvpn-as-latest-ubuntu20.amd_64.deb
          sudo apt-get install -f
 
-     - name: Run script
+    - name: Run script
       run: | 
-        sudo chmod +x openvpn_dependencies.sh
-        sudo ./openvpn_dependencies.sh
+       sudo chmod +x openvpn_dependencies.sh
+       sudo ./openvpn_dependencies.sh
 
      - name: Upload dependencies as artifact
        uses: actions/upload-artifact@v2
