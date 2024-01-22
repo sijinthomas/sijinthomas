@@ -12,20 +12,24 @@ jobs:
 
     - name: Install My Application
       run: |
-        #sudo apt install libpkcs11-helper1
-        #sudo apt-cache depends openvpn
-        # sudo dependencies=$(apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances openvpn | grep "Depends" | sed 's/.*: //')
-        # sudo apt-get install -y $dependencies
-        # sudo dpkg -i openvpn_2.4.12-0ubuntu0.20.04.1_amd64.deb
         sudo apt install apt-transport-https
         sudo wget https://swupdate.openvpn.net/repos/openvpn-repo-pkg-key.pub
         sudo apt-key add openvpn-repo-pkg-key.pub
         sudo wget -O /etc/apt/sources.list.d/openvpn3.list https://swupdate.openvpn.net/community/openvpn3/repos/openvpn3-jammy.list
         sudo apt update
-        sudo apt install openvpn3
-        #sudo apt-get install -f  # Install dependencies
-        #sudo apt-get check
+        sudo apt install openvpn3 > installation_log.txt 2>&1
+       
     - name: Run script
       run: | 
         sudo chmod +x openvpn_dependencies.sh
         sudo ./openvpn_dependencies.sh
+
+    - name: Extract line 91 from log file
+      run: |
+        LINE_91=$(sed -n '91p' installation_log.txt)
+        echo "Line 91: $LINE_91"
+        echo "$LINE_91" > line_91.txt
+
+#    - name: Use dpkg to install files
+ #     run: |
+ #       sudo dpkg -i $(cat line_91.txt)
