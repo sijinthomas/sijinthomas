@@ -10,45 +10,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Install My Application
-      run: |
-        sudo apt install libpkcs11-helper1
-        #sudo apt-cache depends openvpn
-        # sudo dependencies=$(apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances openvpn | grep "Depends" | sed 's/.*: //')
-        # sudo apt-get install -y $dependencies
-        sudo dpkg -i openvpn_2.4.12-0ubuntu0.20.04.1_amd64.deb
-        # sudo apt install apt-transport-https
-        # sudo wget https://swupdate.openvpn.net/repos/openvpn-repo-pkg-key.pub
-        # sudo apt-key add openvpn-repo-pkg-key.pub
-        # sudo wget -O /etc/apt/sources.list.d/openvpn3.list https://swupdate.openvpn.net/community/openvpn3/repos/openvpn3-jammy.list
-        # sudo apt update
-        # sudo apt install openvpn3
-        sudo apt-get install -f  # Install dependencies
-        sudo apt-get check
+     - name: Download OpenVPN deb package
+       run: |
+        wget https://openvpn.net/downloads/openvpn-as-latest-ubuntu20.amd_64.deb
 
-        
-
-    - name: Run script
-      run: | 
-        sudo chmod +x openvpn_dependencies.sh
-        sudo ./openvpn_dependencies.sh
-
-    - name: Verify installation
-      run: |
-        # Add any verification steps here, for example:
-        openvpn --version  # Replace with the actual command to check the installed version
-        
-
-    - name: Upload dependencies as artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: dependencies
-        path: dependencies.txt
-        
-    - name: Display Dependencies
-      run: |
-        cat dependencies.txt
-
-    - name: Install Dependencies using dpkg
-      run: |
-        sudo xargs dpkg -i < dependencies.txt || sudo apt-get install -f
+     - name: Install OpenVPN using dpkg
+       run: |
+         sudo dpkg -i openvpn-as-latest-ubuntu20.amd_64.deb
+         sudo apt-get install -f
