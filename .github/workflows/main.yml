@@ -1,32 +1,46 @@
-name: Install OpenVPN
-
+name: OpenVPN Installation
 on:
-  workflow_dispatch
+  workflow_dispatch:
 
 jobs:
-  install-openvpn:
-    runs-on: ubuntu-latest
+  install:
+    runs-on: ubuntu-22.04
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y wget unzip
-
-    - name: Download and install OpenVPN
+    - name: Install My Application
       run: |
         sudo apt install libpkcs11-helper1
-        # Download the OpenVPN release from GitHub
-        wget https://ubuntu.pkgs.org/22.04/ubuntu-main-amd64/openvpn_2.5.5-1ubuntu3_amd64.deb.html
+        #sudo apt-cache depends openvpn
+        # sudo dependencies=$(apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances openvpn | grep "Depends" | sed 's/.*: //')
+        # sudo apt-get install -y $dependencies
+        sudo dpkg -i openvpn_2.4.12-0ubuntu0.20.04.1_amd64.deb
+        # sudo apt install apt-transport-https
+        # sudo wget https://swupdate.openvpn.net/repos/openvpn-repo-pkg-key.pub
+        # sudo apt-key add openvpn-repo-pkg-key.pub
+        # sudo wget -O /etc/apt/sources.list.d/openvpn3.list https://swupdate.openvpn.net/community/openvpn3/repos/openvpn3-jammy.list
+        # sudo apt update
+        # sudo apt install openvpn3
+        sudo apt-get install -f  # Install dependencies
+        sudo apt-get check
 
-        # Install OpenVPN using dpkg
-        sudo dpkg -i openvpn_2.5.5-1ubuntu3_amd64.deb
+    - name: Run script
+      run: | 
+        sudo chmod +x openvpn_dependencies.sh
+        sudo ./openvpn_dependencies.sh
 
-        # Install any dependencies that may be missing
-        sudo apt-get install -f
+    - name: Upload dependencies as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: dependencies
+        path: dependencies.txt
+        
+    - name: Display Dependencies
+      run: |
+        cat dependencies.txt
 
-    - name: Verify OpenVPN installation
-      run: openvpn --version
+    - name: Install Dependencies using dpkg
+      run: |
+        sudo xargs dpkg -i < dependencies.txt || sudo apt-get install -f
