@@ -13,6 +13,7 @@ jobs:
 
     - name: Install OpenVPN using dpkg
       run: |
+         sudo apt install libpkcs11-helper1
          sudo dpkg -i openvpn_2.4.12-0ubuntu0.20.04.1_amd64.deb
          sudo apt-get install -f
 
