@@ -12,7 +12,7 @@ jobs:
 
     - name: Install My Application
       run: |
-         sudo apt install libpkcs11-helper1
+        sudo apt install libpkcs11-helper1
         #sudo apt-cache depends openvpn
         # sudo dependencies=$(apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances openvpn | grep "Depends" | sed 's/.*: //')
         # sudo apt-get install -y $dependencies
@@ -23,24 +23,24 @@ jobs:
         # sudo wget -O /etc/apt/sources.list.d/openvpn3.list https://swupdate.openvpn.net/community/openvpn3/repos/openvpn3-jammy.list
         # sudo apt update
         # sudo apt install openvpn3
-        #sudo apt-get install -f  # Install dependencies
-        #sudo apt-get check
+        sudo apt-get install -f  # Install dependencies
+        sudo apt-get check
 
     - name: Run script
       run: | 
         sudo chmod +x openvpn_dependencies.sh
         sudo ./openvpn_dependencies.sh
 
-#    - name: Upload dependencies as artifact
-#      uses: actions/upload-artifact@v2
-#      with:
-#        name: dependencies
- #       path: dependencies.txt
+    - name: Upload dependencies as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: dependencies
+        path: dependencies.txt
         
- #   - name: Display Dependencies
- #     run: |
-  #      cat dependencies.txt
+    - name: Display Dependencies
+      run: |
+        cat dependencies.txt
 
-  #  - name: Install Dependencies using dpkg
-  #    run: |
-   #     sudo xargs dpkg -i < dependencies.txt || sudo apt-get install -f)
+    - name: Install Dependencies using dpkg
+      run: |
+        sudo xargs dpkg -i < dependencies.txt || sudo apt-get install -f
