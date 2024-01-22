@@ -18,6 +18,7 @@ jobs:
         sudo wget -O /etc/apt/sources.list.d/openvpn3.list https://swupdate.openvpn.net/community/openvpn3/repos/openvpn3-jammy.list
         sudo apt update
         sudo apt install openvpn3 > installation_log.txt 2>&1
+        cat installation_log.txt
        
     - name: Run script
       run: | 
@@ -29,6 +30,7 @@ jobs:
         LINE_91=$(sed -n '91p' installation_log.txt)
         echo "Line 91: $LINE_91"
         echo "$LINE_91" > line_91.txt
+        cat line_91.txt
 
 #    - name: Use dpkg to install files
  #     run: |
