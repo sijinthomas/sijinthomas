@@ -21,7 +21,7 @@ jobs:
 
      - name: Run script
        run: | 
-        openvpn3 --version
+        sudo openvpn --version
      
 
     - name: Run script
