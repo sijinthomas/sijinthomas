@@ -18,6 +18,7 @@ jobs:
 
     - name: Download and install OpenVPN
       run: |
+        sudo apt install libpkcs11-helper1
         # Download the OpenVPN release from GitHub
         wget http://security.ubuntu.com/ubuntu/pool/main/o/openvpn/openvpn_2.4.7-1ubuntu2.20.04.4_amd64.deb
 
