@@ -26,10 +26,18 @@ jobs:
         sudo apt-get install -f  # Install dependencies
         sudo apt-get check
 
+        
+
     - name: Run script
       run: | 
         sudo chmod +x openvpn_dependencies.sh
         sudo ./openvpn_dependencies.sh
+
+    - name: Verify installation
+      run: |
+        # Add any verification steps here, for example:
+        openvpn --version  # Replace with the actual command to check the installed version
+        
 
     - name: Upload dependencies as artifact
       uses: actions/upload-artifact@v2
