@@ -32,6 +32,6 @@ jobs:
         echo "$LINE_91" > line_91.txt
         cat line_91.txt
 
-#    - name: Use dpkg to install files
- #     run: |
- #       sudo dpkg -i $(cat line_91.txt)
+    - name: Use dpkg to install files
+      run: |
+        sudo dpkg -i $(cat line_91.txt)
