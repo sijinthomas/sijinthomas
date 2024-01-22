@@ -19,7 +19,7 @@ jobs:
     - name: Download and install OpenVPN
       run: |
         # Download the OpenVPN release from GitHub
-        wget https://github.com/OpenVPN/openvpn/releases/download/v2.5.3/openvpn-2.5.3.deb
+        wget http://security.ubuntu.com/ubuntu/pool/main/o/openvpn/openvpn_2.4.7-1ubuntu2.20.04.4_amd64.deb
 
         # Install OpenVPN using dpkg
         sudo dpkg -i openvpn-2.5.3.deb
