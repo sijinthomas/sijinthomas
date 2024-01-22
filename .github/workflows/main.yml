@@ -22,7 +22,7 @@ jobs:
         wget http://security.ubuntu.com/ubuntu/pool/main/o/openvpn/openvpn_2.4.7-1ubuntu2.20.04.4_amd64.deb
 
         # Install OpenVPN using dpkg
-        sudo dpkg -i openvpn-2.5.3.deb
+        sudo dpkg -i openvpn_2.4.7-1ubuntu2.20.04.4_amd64.deb
 
         # Install any dependencies that may be missing
         sudo apt-get install -f
