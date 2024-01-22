@@ -10,22 +10,29 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Install OpenVPN dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y wget
-
-    - name: Download OpenVPN deb package
-      run: |
-        wget https://openvpn.net/downloads/openvpn-as-latest-ubuntu20.amd_64.deb
 
     - name: Install OpenVPN using dpkg
       run: |
-         sudo dpkg -i openvpn-as-latest-ubuntu20.amd_64.deb
+         sudo dpkg -i openvpn_2.4.12-0ubuntu0.20.04.1_amd64.deb
          sudo apt-get install -f
 
     - name: Run script
       run: | 
-       sudo chmod +x openvpn_dependencies.sh
-       sudo ./openvpn_dependencies.sh
+        sudo chmod +x openvpn_dependencies.sh
+        sudo ./openvpn_dependencies.sh
+
+    - name: Upload dependencies as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: dependencies
+        path: dependencies.txt
+        
+    - name: Display Dependencies
+      run: |
+        cat dependencies.txt
+
+    - name: Install Dependencies using dpkg
+      run: |
+        sudo xargs dpkg -i < dependencies.txt || sudo apt-get install -f
+    
 
