@@ -32,16 +32,16 @@ jobs:
         sudo chmod +x openvpn_dependencies.sh
         sudo ./openvpn_dependencies.sh
 
-    - name: Upload dependencies as artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: dependencies
-        path: dependencies.txt
+#    - name: Upload dependencies as artifact
+#      uses: actions/upload-artifact@v2
+#      with:
+#        name: dependencies
+ #       path: dependencies.txt
         
-    - name: Display Dependencies
-      run: |
-        cat dependencies.txt
+ #   - name: Display Dependencies
+ #     run: |
+  #      cat dependencies.txt
 
-    - name: Install Dependencies using dpkg
-      run: |
-        sudo xargs dpkg -i < dependencies.txt || sudo apt-get install -f)
+  #  - name: Install Dependencies using dpkg
+  #    run: |
+   #     sudo xargs dpkg -i < dependencies.txt || sudo apt-get install -f)
