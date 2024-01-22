@@ -34,6 +34,6 @@ jobs:
 
     - name: Install Dependencies using dpkg
       run: |
-        cat dependencies.txt | xargs sudo dpkg -i || sudo apt-get install -f
+        xargs -a dependencies.txt sudo dpkg -i || sudo apt-get install -f
     
 
