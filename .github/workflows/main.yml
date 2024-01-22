@@ -10,11 +10,16 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-     - name: Download OpenVPN deb package
-       run: |
+    - name: Install OpenVPN dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget
+
+    - name: Download OpenVPN deb package
+      run: |
         wget https://openvpn.net/downloads/openvpn-as-latest-ubuntu20.amd_64.deb
 
-     - name: Install OpenVPN using dpkg
-       run: |
+    - name: Install OpenVPN using dpkg
+      run: |
          sudo dpkg -i openvpn-as-latest-ubuntu20.amd_64.deb
          sudo apt-get install -f
