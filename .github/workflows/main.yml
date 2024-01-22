@@ -30,7 +30,7 @@ jobs:
         
     - name: Display Dependencies
       run: |
-        cat dependencies.txt
+        cat dependencies.txt | grep -v '<debconf-2.0>'
 
     - name: Install Dependencies using dpkg
       run: |
