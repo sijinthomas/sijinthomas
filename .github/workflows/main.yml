@@ -20,7 +20,7 @@ jobs:
         sudo apt install openvpn3
 
      - name: Run script
-      run: | 
+       run: | 
         openvpn3 --version
      
 
