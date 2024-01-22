@@ -1,6 +1,6 @@
 #!/bin/bash
 
-package_name="openvpn"
+package_name="openvpn3"
 
 # Check if the package is installed
 if ! dpkg -s $package_name &> /dev/null; then
