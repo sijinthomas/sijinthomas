@@ -25,6 +25,7 @@ jobs:
       run: | 
         sudo chmod +x openvpn_dependencies.sh
         sudo ./openvpn_dependencies.sh | grep -v '<debconf-2.0>' > dependencies.txt
+        cat dependencies.txt
     
     - name: Upload dependencies as artifact
       uses: actions/upload-artifact@v2
@@ -34,7 +35,7 @@ jobs:
         
     - name: Display Dependencies
       run: |
-        cat dependencies.txt | grep -v '<debconf-2.0>'
+        cat dependencies.txt
     - name: Install dependencies using apt
       run: |
         sudo apt-get update
