@@ -20,7 +20,7 @@ jobs:
         sudo apt install openvpn3
 
         sudo dpkg -i libjsoncpp25_1.9.5-3_arm64.deb
-        sudo dpkg -i libpkcs11-helper1_1.25.1-1_arm64.deb
+        sudo dpkg -i libprotobuf23_3.12.4-1ubuntu7.22.04.1_amd64.deb
      
     - name: Run script
       run: | 
