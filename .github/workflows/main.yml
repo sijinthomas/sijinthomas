@@ -4,28 +4,22 @@ on:
 
 jobs:
   install:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Install My Application
-      run: |
-        sudo apt install apt-transport-https
-        sudo wget https://swupdate.openvpn.net/repos/openvpn-repo-pkg-key.pub
-        sudo apt-key add openvpn-repo-pkg-key.pub
-        sudo wget -O /etc/apt/sources.list.d/openvpn3.list https://swupdate.openvpn.net/community/openvpn3/repos/openvpn3-jammy.list
-        sudo apt update
-        sudo apt install openvpn3 >> install.log 2>&1
-        cat install.log
-        
-     
 
+    - name: Install OpenVPN using dpkg
+      run: |
+         sudo apt install libpkcs11-helper1
+         sudo dpkg -i openvpn_2.4.12-0ubuntu0.20.04.1_amd64.deb
+         sudo apt-get install -f
     - name: Run script
       run: | 
         sudo chmod +x openvpn_dependencies.sh
-        sudo ./openvpn_dependencies.sh > dependencies.txt
+        sudo ./openvpn_dependencies.sh
     - name: Upload dependencies as artifact
       uses: actions/upload-artifact@v2
       with:
