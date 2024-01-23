@@ -18,7 +18,23 @@ jobs:
         sudo wget -O /etc/apt/sources.list.d/openvpn3.list https://swupdate.openvpn.net/community/openvpn3/repos/openvpn3-jammy.list
         sudo apt update
         sudo apt install openvpn3
+     
     - name: Run script
       run: | 
         sudo chmod +x openvpn_dependencies.sh
-        sudo ./openvpn_dependencies.sh
+        sudo ./openvpn_dependencies.sh > dependencies.txt
+
+    - name: Upload dependencies as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: dependencies
+        path: dependencies.txt
+
+    - name: Extract new packages
+      run: |
+        sed -n '/The following NEW packages will be installed:/,/^0 upgraded,/{/^0 upgraded,/!p}' dependencies.txt > new_packages.txt
+
+    - name: Display New Packages
+      run: |
+        cat new_packages.txt
+
