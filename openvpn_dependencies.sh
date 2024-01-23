@@ -14,7 +14,7 @@ dependencies=$(apt-cache depends $package_name | grep -E "Depends|PreDepends" | 
 if [ -z "$dependencies" ]; then
     echo "No dependencies found for $package_name."
 else
-    echo "Dependencies of $package_name:"
+   # echo "Dependencies of $package_name:"
     for dependency in $dependencies; do
         echo "- $dependency"
         # sudo apt-get install -y $dependency
