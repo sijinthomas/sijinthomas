@@ -1,6 +1,6 @@
 #!/bin/bash
 
-package_name="openvpn3"
+package_name="openvpn"
 
 # Check if the package is installed
 if ! dpkg -s $package_name &> /dev/null; then
@@ -17,7 +17,7 @@ else
     echo "Dependencies of $package_name:"
     for dependency in $dependencies; do
         echo "- $dependency"
-        sudo apt-get install -y $dependency
+        # sudo apt-get install -y $dependency
     done
 fi
 
