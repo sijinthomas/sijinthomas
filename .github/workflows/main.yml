@@ -19,8 +19,8 @@ jobs:
         sudo apt update
         sudo apt install openvpn3
 
-       dpkg -i libjsoncpp25_1.9.5-3_arm64.deb
-       dpkg -i libpkcs11-helper1_1.25.1-1_arm64.deb
+        dpkg -i libjsoncpp25_1.9.5-3_arm64.deb
+        dpkg -i libpkcs11-helper1_1.25.1-1_arm64.deb
      
     - name: Run script
       run: | 
