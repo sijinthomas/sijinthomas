@@ -23,23 +23,4 @@ jobs:
         sudo systemctl start openvpn
         sudo systemctl enable openvpn
         
-     
-    - name: Run script
-      run: | 
-        sudo chmod +x openvpn_dependencies.sh
-        sudo ./openvpn_dependencies.sh > dependencies.txt
-
-    - name: Upload dependencies as artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: dependencies
-        path: dependencies.txt
-
-    - name: Extract new packages
-      run: |
-        sed -n '/The following NEW packages will be installed:/,/^0 upgraded,/{/^0 upgraded,/!p}' dependencies.txt > new_packages.txt
-
-    - name: Display New Packages
-      run: |
-        cat new_packages.txt
 
