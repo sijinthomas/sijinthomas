@@ -17,6 +17,11 @@ jobs:
         #sudo apt-get install libprotobuf23
 
         sudo dpkg -i openvpn_2.4.12-0ubuntu0.20.04.1_amd64.deb
+
+    - name: Start OpenVPN
+      run: |
+        sudo systemctl start openvpn
+        sudo systemctl enable openvpn
         
      
     - name: Run script
