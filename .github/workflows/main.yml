@@ -12,6 +12,7 @@ jobs:
 
     - name: Install My Application
       run: |
+        sudo apt-get install libpkcs11-helper1
         sudo apt-get install libjsoncpp25
         sudo apt-get install libprotobuf23
 
