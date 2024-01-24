@@ -15,7 +15,7 @@ jobs:
         sudo apt-get install libjsoncpp25
         sudo apt-get install libprotobuf23
 
-        dpkg -i openvpn_2.4.12-0ubuntu0.20.04.1_amd64.deb
+        sudo dpkg -i openvpn_2.4.12-0ubuntu0.20.04.1_amd64.deb
         
      
     - name: Run script
