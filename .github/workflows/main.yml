@@ -29,7 +29,8 @@ jobs:
 
     - name: Update version in components.js
       run: |
-        grep -q "version: '$current_version'" components.js && sed -i "s/version: '$current_version'/version: '$new_version'/" components.js || echo "Version not found in components.js"
+         awk -v current_version="$current_version" -v new_version="$new_version" '{gsub("version: \047" current_version "\047", "version: \047" new_version "\047")}1' components.js > components_temp.js
+         mv components_temp.js components.js
         
     - name: Commit and Push Changes
       run: |
