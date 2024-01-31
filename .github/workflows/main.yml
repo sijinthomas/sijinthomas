@@ -29,13 +29,13 @@ jobs:
 
     - name: Update version in components.js
       run: |
-        sed -i "s/version: '.*'/version: '$new_version',/" test.txt
+        sed -i "s/version: '.*'/version: '$new_version',/" components.js
 
     - name: Commit and Push Changes
       run: |
         git config --local user.email "sijinthomaspalliyady@gmail.com"
         git config --local user.name "Sijin Thomas"
-        git add test.txt
+        git add test.txt components.js
         git commit -m "Increment version to ${{ steps.increment_version.outputs.version }}"
         git push
 
