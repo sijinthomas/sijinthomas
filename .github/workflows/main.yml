@@ -29,7 +29,7 @@ jobs:
 
     - name: Update version in components.js
       run: |
-        sjq --arg new_version "$new_version" '.com.revvity.streamrelay.version = $new_version' components.js > components_temp.js
+        jq --arg new_version "$new_version" '.com.revvity.streamrelay.version = $new_version' components.js > components_temp.js
         mv components_temp.js components.js
 
     - name: Commit and Push Changes
