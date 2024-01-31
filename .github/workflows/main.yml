@@ -13,8 +13,8 @@ jobs:
       - name: Download File from S3
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-access-key-id: AKIAWS6YZVGCQWEEIVWS
+          aws-secret-access-key: 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
           aws-region: us-east-1
         run: |
           aws s3 cp s3://ver-bucket-test/version.txt .
