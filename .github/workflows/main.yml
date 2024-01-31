@@ -1,28 +1,42 @@
-name: OpenVPN Installation
+name: Increment Version
+
 on:
   workflow_dispatch:
 
 jobs:
-  install:
-    runs-on: ubuntu-22.04
+  increment_version:
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Install My Application
-      run: |
-        sudo apt-get install libpkcs11-helper1
-        #sudo apt-get install libjsoncpp25
-        #sudo apt-get install libprotobuf23
+      - name: Download File from S3
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: your-s3-bucket-region
+        run: |
+          aws s3 cp s3://your-s3-bucket/path/to/version.txt version.txt
 
-        #sudo dpkg -i openvpn_2.4.12-0ubuntu0.20.04.1_amd64.deb
-        sudo dpkg -i openvpn_2.5.9-0ubuntu0.22.04.2_amd64.deb
-        sudo openvpn --config ./vpn.ovpn
+      - name: Read Current Version
+        id: read_version
+        run: echo "::set-output name=version::$(cat version.txt)"
 
-    - name: Start OpenVPN
-      run: |
-        sudo systemctl start openvpn
-        sudo systemctl enable openvpn
-        
+      - name: Increment Version
+        id: increment_version
+        run: echo "::set-output name=version::$(node -e "console.log((process.env.INPUT_VERSION.split('.').map(Number).join('.') + 1).replace(/\.0/g, '.'))")"
+        env:
+          INPUT_VERSION: ${{ steps.read_version.outputs.version }}
 
+      - name: Write New Version
+        run: echo "${{ steps.increment_version.outputs.version }}" > version.txt
+
+      - name: Commit and Push Changes
+        run: |
+          git config --local user.email "sijinthomaspalliyady@gmail.com"
+          git config --local user.name "Sijin Thomas"
+          git add version.txt
+          git commit -m "Increment version to ${{ steps.increment_version.outputs.version }}"
+          git push
