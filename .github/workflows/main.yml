@@ -22,7 +22,7 @@ jobs:
         aws s3 cp s3://ver-bucket-test/version.txt .
         current_version=$(cat version.txt)
         new_version=$(echo $current_version | awk -F'.' '{print $1"."$2"."$3+1}')
-        echo $new_version > version.txt
+        echo "file version = $new_version" > test.txt
 
     - name: Show updated version
       run: cat version.txt
@@ -31,7 +31,7 @@ jobs:
       run: |
         git config --local user.email "sijinthomaspalliyady@gmail.com"
         git config --local user.name "Sijin Thomas"
-        git add version.txt
+        git add test.txt
         git commit -m "Increment version to ${{ steps.increment_version.outputs.version }}"
         git push
 
