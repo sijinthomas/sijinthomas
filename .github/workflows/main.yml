@@ -29,7 +29,7 @@ jobs:
 
     - name: Update version in components.js
       run: |
-        sed -i "s/version: '.*',/version: '$new_version',/" components.js
+        grep -q "version: '$current_version'" components.js && sed -i "s/version: '$current_version'/version: '$new_version'/" components.js || echo "Version not found in components.js"
         
     - name: Commit and Push Changes
       run: |
