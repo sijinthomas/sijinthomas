@@ -18,7 +18,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: your-s3-bucket-region
         run: |
-          aws s3 cp s3://your-s3-bucket/path/to/version.txt version.txt
+          aws s3 cp s3://ver-bucket-test/version.txt
 
       - name: Read Current Version
         id: read_version
