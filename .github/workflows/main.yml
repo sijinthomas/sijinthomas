@@ -29,7 +29,7 @@ jobs:
 
     - name: Update version in components.js
       run: |
-         awk -v current_version="$current_version" -v new_version="$new_version" '{gsub("version: \047" current_version "\047", "version: \047" new_version "\047")}1' components.js > components_temp.js
+         awk -v current_version="$current_version" -v new_version="$new_version" '{gsub(/version: '\''[0-9]+\.[0-9]+\.[0-9]+'\'',/, "version: '\''" new_version "'\'',")}1' components.js > components_temp.js
          mv components_temp.js components.js
         
     - name: Commit and Push Changes
