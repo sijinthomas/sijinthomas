@@ -1,20 +1,25 @@
-name: OpenVPN Installation
+name: Download File from S3
+
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
-  increment_version:
+  download_file:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Download File from S3
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: AKIAWS6YZVGCQWEEIVWS
-          aws-secret-access-key: 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
-          aws-region: us-east-1
-        run: |
-          aws s3 cp s3://ver-bucket-test/version.txt .
+    - name: Set up AWS CLI
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Download file from S3
+      run: |
+        aws s3 cp https://ver-bucket-test.s3.amazonaws.com/version.txt
