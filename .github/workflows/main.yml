@@ -1,5 +1,4 @@
-name: Increment Version
-
+name: OpenVPN Installation
 on:
   workflow_dispatch:
 
@@ -19,34 +18,3 @@ jobs:
           aws-region: us-east-1
         run: |
           aws s3 cp s3://ver-bucket-test/version.txt .
-
-      - name: Read Current Version
-        id: read_version
-        run: |
-          if [ -f version.txt ]; then
-            echo "::set-output name=version::$(cat version.txt)"
-          else
-            echo "::error::Failed to read version.txt"
-            exit 1
-          fi
-
-      - name: Increment Version
-        id: increment_version
-        run: |
-          if [ -n "${{ steps.read_version.outputs.version }}" ]; then
-            echo "::set-output name=version::$(node -e "console.log((process.env.INPUT_VERSION.split('.').map(Number).join('.') + 1).replace(/\.0/g, '.'))")"
-          else
-            echo "::error::Failed to get the current version from read_version step"
-            exit 1
-          fi
-
-      - name: Write New Version
-        run: echo "${{ steps.increment_version.outputs.version }}" > version.txt
-
-      - name: Commit and Push Changes
-        run: |
-          git config --local user.email "sijinthomaspalliyady@gmail.com"
-          git config --local user.name "Sijin Thomas"
-          git add version.txt
-          git commit -m "Increment version to ${{ steps.increment_version.outputs.version }}"
-          git push
