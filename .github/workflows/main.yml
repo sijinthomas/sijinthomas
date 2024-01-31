@@ -1,9 +1,6 @@
 name: Download File from S3
-
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   download_file:
@@ -22,4 +19,4 @@ jobs:
 
     - name: Download file from S3
       run: |
-        aws s3 cp https://ver-bucket-test.s3.amazonaws.com/version.txt
+        aws s3 cp s3://ver-bucket-test/version.txt
