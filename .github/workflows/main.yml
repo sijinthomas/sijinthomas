@@ -30,7 +30,7 @@ jobs:
     - name: Update version in components.js
       run: |
         sed -i "s/version: '.*',/version: '$new_version',/" components.js
-
+        
     - name: Commit and Push Changes
       run: |
         git config --local user.email "sijinthomaspalliyady@gmail.com"
