@@ -29,7 +29,8 @@ jobs:
 
     - name: Update version in components.js
       run: |
-         node -e "const fs = require('fs'); const data = fs.readFileSync('app.ts', 'utf-8'); const updatedData = data.replace(/'com\.revvity\.streamrelay': {\\s*version: '[^']*'/, \`'com.revvity.streamrelay': { version: '${new_version}'\`); fs.writeFileSync('app.ts', updatedData);"
+         jq '.library.components."com.revvity.streamrelay".version = $new_version' app.ts > app_temp.ts
+        mv app_temp.ts app.ts
         
     - name: Commit and Push Changes
       run: |
