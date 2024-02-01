@@ -1,18 +1,21 @@
+import json
 import sys
-import re
 
 def update_version(file_content, component_name, new_version):
-    pattern = re.compile(rf"('{component_name}':\s*{{\s*version:\s*)'[0-9]+\.[0-9]+\.[0-9]+'")
-    updated_content = re.sub(pattern, rf"\1'{new_version}'", file_content)
+    data = json.loads(file_content)
+
+    # Update the version for the specified component
+    if component_name in data.get('library', {}).get('components', {}):
+        data['library']['components'][component_name]['version'] = new_version
+
+    # Convert the updated data back to JSON
+    updated_content = json.dumps(data, indent=2)
+
     return updated_content
 
 file_path = "app.ts"  # Assuming app.ts is in the root of your GitHub repository
 component_name = "com.revvity.streamrelay"  # Update with the correct component name
 new_version = sys.argv[1] if len(sys.argv) > 1 else "No argument provided"
-
-print(f"File path: {file_path}")
-print(f"Component name: {component_name}")
-print(f"New version: {new_version}")
 
 with open(file_path, 'r') as file:
     content = file.read()
