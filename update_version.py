@@ -10,7 +10,7 @@ file_path = 'app.ts'
 new_version = sys.argv[1]
 
 # Regular expression to match the version pattern
-version_pattern = re.compile(r"'com\.revvity\.streamrelay': {\s*version: ['\"]([^'\"]+)['\"]", re.MULTILINE)
+version_pattern = re.compile(r"'com\.revvity\.streamrelay': {\s*version:\s*['\"]([^'\"]+)['\"]", re.MULTILINE)
 
 with open(file_path, 'r') as file:
     content = file.read()
