@@ -35,7 +35,7 @@ jobs:
 
     - name: Update version in app.ts
       run: |
-         python update_version.py "${{ steps.download_file.outputs.new_version }}"
+         python update_version.py "${{ needs.download_file.outputs.new_version }}"
         
     - name: Commit and Push Changes
       run: |
