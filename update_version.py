@@ -2,7 +2,7 @@ import re
 import sys
 
 def update_version(file_content, component_name, new_version):
-    pattern = re.compile(rf"('{component_name}':\s*{{\s*version:\s*)'[0-9]+\.[0-9]+\.[0-9]+'")
+    pattern = re.compile(rf"('{component_name}':\s*{{\s*version:\s*)'[^']+'")
     updated_content = re.sub(pattern, rf"\1'{new_version}'", file_content)
     return updated_content
 
