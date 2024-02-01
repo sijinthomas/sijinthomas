@@ -1,23 +1,34 @@
-import sys
+# update_version.py
+
 import re
+import sys
 
-def update_version(file_path, new_version):
-    with open(file_path, 'r') as file:
-        content = file.read()
+# Specify the path to your app.ts file
+file_path = 'app.ts'
 
-    # Use regex to find and replace the version
-    pattern = re.compile(r"('com\.revvity\.streamrelay':\s*{\s*version:\s*)('[^']+')")
-    content = pattern.sub(r"\1'{}'".format(new_version), content)
+# New version to update
+new_version = sys.argv[1]
 
+# Regular expression to match the version pattern
+version_pattern = re.compile(r"'com\.revvity\.streamrelay': {\s*version: ['\"]([^'\"]+)['\"]", re.MULTILINE)
+
+with open(file_path, 'r') as file:
+    content = file.read()
+
+# Find the current version using regex
+match = version_pattern.search(content)
+
+if match:
+    current_version = match.group(1)
+    print(f"Current Version: {current_version}")
+
+    # Replace the current version with the new version
+    updated_content = version_pattern.sub(f"'com.revvity.streamrelay': {{\n            version: '{new_version}'", content)
+
+    # Write the updated content back to the file
     with open(file_path, 'w') as file:
-        file.write(content)
+        file.write(updated_content)
 
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python update_version.py <new_version>")
-        sys.exit(1)
-
-    new_version = sys.argv[1]
-    app_ts_path = "app.ts"  # Assuming app.ts is in the root of your repository
-
-    update_version(app_ts_path, new_version)
+    print(f"Version updated to: {new_version}")
+else:
+    print("Version pattern not found in the file.")
