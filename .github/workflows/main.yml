@@ -6,6 +6,11 @@ jobs:
   download_file:
     runs-on: ubuntu-latest
 
+    outputs:
+      # Define the output variable new_version
+      id: download_file_output
+      value: ${{ steps.download_file.outputs.new_version }}
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
