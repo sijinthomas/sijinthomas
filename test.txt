@@ -1,1 +1,1 @@
-file version = 1.0.11
+file version = 1.0.12
