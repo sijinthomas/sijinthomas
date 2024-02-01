@@ -10,6 +10,10 @@ file_path = "app.ts"  # Assuming app.ts is in the root of your GitHub repository
 component_name = "com.revvity.streamrelay"  # Update with the correct component name
 new_version = sys.argv[1]  # Get the new version from the command-line argument
 
+print(f"File path: {file_path}")
+print(f"Component name: {component_name}")
+print(f"New version: {new_version}")
+
 with open(file_path, 'r') as file:
     content = file.read()
 
@@ -17,3 +21,5 @@ updated_content = update_version(content, component_name, new_version)
 
 with open(file_path, 'w') as file:
     file.write(updated_content)
+
+print("Update successful!")
