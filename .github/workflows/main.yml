@@ -29,8 +29,7 @@ jobs:
 
     - name: Update version in components.js
       run: |
-         awk -v current_version="$current_version" -v new_version="$new_version" '{gsub(/version: '\''[0-9]+\.[0-9]+\.[0-9]+'\'',/, "version: '\''" new_version "'\'',")}1' components.js > components_temp.js
-         mv components_temp.js components.js
+         sed -i "s/'com\.revvity\.streamrelay': {\s*version: '[^']*'/\&version: '$new_version'/g" app.ts
         
     - name: Commit and Push Changes
       run: |
