@@ -41,7 +41,7 @@ jobs:
       run: |
         git config --local user.email "sijinthomaspalliyady@gmail.com"
         git config --local user.name "Sijin Thomas"
-        git add test.txt components.js
+        git add test.txt app.ts
         git commit -m "Increment version to ${{ steps.increment_version.outputs.version }}"
         git push
 
