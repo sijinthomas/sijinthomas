@@ -30,7 +30,7 @@ jobs:
     - name: Update version in components.js
       run: |
          jq '.library.components."com.revvity.streamrelay".version = $new_version' app.ts > app_temp.ts
-        mv app_temp.ts app.ts
+         mv app_temp.ts app.ts
         
     - name: Commit and Push Changes
       run: |
