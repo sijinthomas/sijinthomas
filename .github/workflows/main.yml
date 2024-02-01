@@ -42,7 +42,7 @@ jobs:
         git config --local user.email "sijinthomaspalliyady@gmail.com"
         git config --local user.name "Sijin Thomas"
         git add test.txt app.ts
-        git commit -m "Increment version to ${{ steps.increment_version.outputs.version }}"
+        git commit -m "Bump version to ${{ needs.download_file.outputs.new_version }}"
         git push
 
 
