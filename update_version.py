@@ -1,21 +1,20 @@
-import re
 import sys
+import fileinput
 
-def update_version(file_content, component_name, new_version):
-    pattern = re.compile(rf"('{component_name}':\s*{{\s*version:\s*)'[^']+'")
-    updated_content = re.sub(pattern, rf"\1'{new_version}'", file_content)
-    return updated_content
+def update_version(file_path, new_version):
+    with fileinput.FileInput(file_path, inplace=True) as file:
+        for line in file:
+            if "'com.revvity.streamrelay':" in line and 'version' in line:
+                print(f"         'com.revvity.streamrelay': {{\n            version: '{new_version}',")
+            else:
+                print(line, end='')
 
-file_path = "app.ts"  # Assuming app.ts is in the root of your GitHub repository
-component_name = "com.revvity.streamrelay"  # Update with the correct component name
-new_version = sys.argv[1] if len(sys.argv) > 1 else "No argument provided"
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: python update_version.py <new_version>")
+        sys.exit(1)
 
-with open(file_path, 'r') as file:
-    content = file.read()
+    new_version = sys.argv[1]
+    app_ts_path = "app.ts"  # Replace with the actual path
 
-updated_content = update_version(content, component_name, new_version)
-
-with open(file_path, 'w') as file:
-    file.write(updated_content)
-
-print("Update successful!")
+    update_version(app_ts_path, new_version)
