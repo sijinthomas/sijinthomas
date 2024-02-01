@@ -1,16 +1,9 @@
-import json
+import re
 import sys
 
 def update_version(file_content, component_name, new_version):
-    data = json.loads(file_content)
-
-    # Update the version for the specified component
-    if component_name in data.get('library', {}).get('components', {}):
-        data['library']['components'][component_name]['version'] = new_version
-
-    # Convert the updated data back to JSON
-    updated_content = json.dumps(data, indent=2)
-
+    pattern = re.compile(rf"('{component_name}':\s*{{\s*version:\s*)'[0-9]+\.[0-9]+\.[0-9]+'")
+    updated_content = re.sub(pattern, rf"\1'{new_version}'", file_content)
     return updated_content
 
 file_path = "app.ts"  # Assuming app.ts is in the root of your GitHub repository
