@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Read the new version from the file
-new_version="1.0.2"
+#new_version="1.0.2"
+new_version=$(cat new_version.txt)
 
 # Set the file path
 file_path="/home/ec2-user/app.ts"
