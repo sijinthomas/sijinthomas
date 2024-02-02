@@ -5,7 +5,7 @@
 new_version=$(cat new_version.txt)
 
 # Set the file path
-file_path="/home/ec2-user/app.ts"
+file_path="app.ts"
 
 # Set the component name
 component_name="com.revvity.streamrelay"
