@@ -40,7 +40,7 @@ jobs:
 
     - name: Update version in app.ts
       run: |
-         python update_version.py "${{ needs.download_file.outputs.new_version }}"
+         sed -i "s/'com.revvity.streamrelay': {\s*version: '[0-9.]*'/\'com.revvity.streamrelay': {\n            version: '$new_version'/" app.ts
         
     - name: Commit and Push Changes
       run: |
@@ -49,6 +49,10 @@ jobs:
         git add test.txt app.ts
         git commit -m "Bump version to ${{ needs.download_file.outputs.new_version }}"
         git push
+
+    - name: Display the new version
+      run: |
+        echo "New version: ${{ needs.download_file.outputs.new_version }}"
 
 
       
