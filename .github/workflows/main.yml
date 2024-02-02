@@ -42,8 +42,7 @@ jobs:
       run: |
         new_version=$(cat new_version.txt)
         echo "New version: $new_version"
-        jq --arg new_version "$new_version" \
-        '.library.components["com.revvity.streamrelay"].version = $new_version' app.ts > app.ts.tmp && mv app.ts.tmp app.ts
+        jq --arg new_version "$new_version" \ '.library.components["com.revvity.streamrelay"].version = $new_version' app.ts > app.ts.tmp && mv app.ts.tmp app.ts
         
     - name: Commit and Push Changes
       run: |
