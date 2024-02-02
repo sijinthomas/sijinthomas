@@ -32,8 +32,9 @@ jobs:
         aws s3 cp s3://ver-bucket-test/version.txt .
         current_version=$(cat version.txt)
         new_version=$(echo $current_version | awk -F'.' '{print $1"."$2"."$3+1}')
-        echo "file version = $new_version" > version.txt
+        echo "file version = $new_version" > test.txt
         echo $new_version > new_version.txt
+        echo $new_version > version.txt
 
 
       
