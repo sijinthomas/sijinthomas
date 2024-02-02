@@ -54,5 +54,5 @@ jobs:
       run: |
         new_version=$(cat new_version.txt)
         echo "New version: $new_version"
-        sed -i "s/'com.revvity.streamrelay': {\s*version: '[0-9.]*'/\'com.revvity.streamrelay': {\n            version: '$new_version'/" app.ts
-
+        #sed -i "s/'com.revvity.streamrelay': {\s*version: '[0-9.]*'/\'com.revvity.streamrelay': {\n            version: '$new_version'/" app.ts
+        awk -v new_version="$new_version" '/'\''com\.revvity\.streamrelay'\''/ {gsub(/version: '\''[0-9.]+'\''/, "version: '\''" new_version "'\''")}1' app.ts > app.ts.tmp && mv app.ts.tmp app.ts
