@@ -65,7 +65,7 @@ app.configure({
       },
       components: {
          'com.revvity.streamrelay': {
-            version: 'file version = 1.0.7',
+            version: '1.0.13',
             publish: {
                repository: 'greengrass-component-com-revvity-streamrelay',
             },
