@@ -35,14 +35,14 @@ jobs:
         echo "file version = $new_version" > test.txt
         echo $new_version > new_version.txt
 
-    - name: Install jq
-      run: sudo apt-get install jq
+
       
     - name: Display the new version
       run: |
         new_version=$(cat new_version.txt)
         echo "New version: $new_version"
-        jq --arg new_version "$new_version" \ '.library.components["com.revvity.streamrelay"].version = $new_version' app.ts > app.ts.tmp && mv app.ts.tmp app.ts
+        chmod +x update_version.sh
+        ./update_version.sh
         
     - name: Commit and Push Changes
       run: |
