@@ -54,7 +54,15 @@ jobs:
       run: |
         new_version=$(cat new_version.txt)
         echo "New version: $new_version"
-        sed -i "s/'com.revvity.streamrelay': {\s*version: '[0-9.]*'/\'com.revvity.streamrelay': {\n            version: '$new_version'/" app.ts
+        # sed -i "s/'com.revvity.streamrelay': {\s*version: '[0-9.]*'/\'com.revvity.streamrelay': {\n            version: '$new_version'/" app.ts
 
-
+    - name: Update version in app.ts
+      run: |
+        node -e " \
+          const fs = require('fs'); \
+          const appTsPath = 'app.ts'; \
+          let content = fs.readFileSync(appTsPath, 'utf-8'); \
+          content = content.replace(/'com.revvity.streamrelay': {\\s*version: '[0-9.]+'/g, '\'com.revvity.streamrelay\': {\\n            version: \'$new_version\''); \
+          fs.writeFileSync(appTsPath, content); \
+        "
       
