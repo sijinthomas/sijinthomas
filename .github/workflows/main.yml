@@ -33,14 +33,14 @@ jobs:
         current_version=$(cat version.txt)
         new_version=$(echo $current_version | awk -F'.' '{print $1"."$2"."$3+1}')
         echo "file version = $new_version" > test.txt
-        echo "::set-output name=new_version::$new_version"
+        echo $new_version > new_version.txt
 
     - name: Show updated version
       run: cat version.txt
 
-    - name: Update version in app.ts
-      run: |
-         sed -i "s/'com.revvity.streamrelay': {\s*version: '[0-9.]*'/\'com.revvity.streamrelay': {\n            version: '$new_version'/" app.ts
+    #- name: Update version in app.ts
+     # run: |
+      #   sed -i "s/'com.revvity.streamrelay': {\s*version: '[0-9.]*'/\'com.revvity.streamrelay': {\n            version: '$new_version'/" app.ts
         
     - name: Commit and Push Changes
       run: |
@@ -52,7 +52,9 @@ jobs:
 
     - name: Display the new version
       run: |
-        echo "New version: ${{ needs.download_file.outputs.new_version }}"
+        new_version=$(cat new_version.txt)
+        echo "New version: $new_version"
+        sed -i "s/'com.revvity.streamrelay': {\s*version: '[0-9.]*'/\'com.revvity.streamrelay': {\n            version: '$new_version'/" app.ts
 
 
       
