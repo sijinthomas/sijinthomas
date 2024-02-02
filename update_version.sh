@@ -1,21 +1,13 @@
 #!/bin/bash
 
 # Read the new version from the file
-new_version=$(cat new_version.txt)
+new_version="1.0.2"
 
 # Set the file path
-file_path="app.ts"
+file_path="/home/ec2-user/app.ts"
 
 # Set the component name
-component_name="'com.revvity.streamrelay'"
+component_name="com.revvity.streamrelay"
 
-# Define the replacement pattern
-replacement="    $component_name: {\n            version: '$new_version',"
-
-# Use awk to perform the replacement
-awk -v component="$component_name" -v replacement="$replacement" '
-    $0 ~ component {
-        sub(/'\''version: '\''[0-9.]+'\''/, replacement)
-    }
-    { print }
-' "$file_path" > "$file_path.tmp" && mv "$file_path.tmp" "$file_path"
+# Use sed to perform the replacement
+sed -i "/'$component_name'/,/version:/ s/version:.*/version: '$new_version',/" "$file_path"
