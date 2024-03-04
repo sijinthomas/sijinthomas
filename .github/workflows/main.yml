@@ -1,59 +1,21 @@
-name: Download File from S3
+name: Your Workflow Name
+
 on:
   workflow_dispatch:
 
 jobs:
-  download_file:
+  your_job_name:
     runs-on: ubuntu-latest
 
-    outputs:
-      # Define the output variable new_version
-      id: download_file_output
-      value: ${{ steps.download_file.outputs.new_version }}
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
-
-    - name: Set up AWS CLI
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
-
-    - name: Download file from S3
-      run: |
-        aws s3 cp s3://ver-bucket-test/version.txt .
-        current_version=$(cat version.txt)
-        new_version=$(echo $current_version | awk -F'.' '{print $1"."$2"."$3+1}')
-        echo "file version = $new_version" > test.txt
-        echo $new_version > new_version.txt
-        echo $new_version > version.txt
-
-
-      
-    - name: Display the new version
-      run: |
-        new_version=$(cat new_version.txt)
-        echo "New version: $new_version"
-        chmod +x update_version.sh
-        ./update_version.sh
-        
-    - name: Commit and Push Changes
-      run: |
-        git config --local user.email "sijinthomaspalliyady@gmail.com"
-        git config --local user.name "Sijin Thomas"
-        git add version.txt app.ts
-        git commit -m "Bump version to ${{ needs.download_file.outputs.new_version }}"
-        git push
-
-    - name: Upload updated file to S3
-      run: |
-         aws s3 cp version.txt s3://ver-bucket-test/version.txt
-
+      - name: Use AWS Signing Helper
+        run: |
+          ./aws_signing_helper credential-process \
+            --certificate ${{ secrets.AWS_CERTIFICATE }} \
+            --private-key ${{ secrets.AWS_PRIVATE_KEY }} \
+            --trust-anchor-arn arn:aws:rolesanywhere:us-east-1:339712756401:trust-anchor/5600bfa3-a51d-470d-8487-cacaa0a3230d \
+            --profile-arn arn:aws:rolesanywhere:us-east-1:339712756401:profile/d9fd5824-a40f-4a39-9fb0-b63c748aa7f9 \
+            --role-arn arn:aws:iam::339712756401:role/roles-anywhere
