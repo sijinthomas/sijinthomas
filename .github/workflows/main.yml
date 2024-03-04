@@ -11,6 +11,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Download aws_signing_helper
+        run: |
+          wget https://rolesanywhere.amazonaws.com/releases/1.1.1/X86_64/Linux/aws_signing_helper -O aws_signing_helper
+          chmod +x aws_signing_helper
+
       - name: Use AWS Signing Helper
         run: |
           ./aws_signing_helper credential-process \
